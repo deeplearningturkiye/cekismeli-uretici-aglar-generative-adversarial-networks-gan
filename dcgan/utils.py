@@ -37,7 +37,7 @@ def train(epochs, D, G, train_loader, D_optimizer, G_optimizer, batch_size, dtyp
 
             D_fake = D(fake_images).squeeze()
 
-            D_train_loss = discriminator_loss(D_real, D_fake)   # Urettigimiz gercek ve sahte fotograflarin sınıflarini göre loss hesaplıyoruz
+            D_train_loss = discriminator_loss(D_real, D_fake, dtype)   # Urettigimiz gercek ve sahte fotograflarin sınıflarini göre loss hesaplıyoruz
 
             D_train_loss.backward()     # Ayristirici agin yeni gradientlerini bulduk
             D_optimizer.step()      # Ayristici agin parametrelerini guncelledik
@@ -52,7 +52,7 @@ def train(epochs, D, G, train_loader, D_optimizer, G_optimizer, batch_size, dtyp
 
             fake_images = G(z_)     # Tekrardan sahte fotograflar uretiyoruz
             D_result = D(fake_images).squeeze()
-            G_train_loss = generator_loss(D_result)     # Urettigimiz fotograflarin basarimini olcuyoruz
+            G_train_loss = generator_loss(D_result, dtype)     # Urettigimiz fotograflarin basarimini olcuyoruz
             G_train_loss.backward()     # Sonuclara gore parametrelerin turevlerini hesaplıyoruz
             G_optimizer.step()  # Parametreleri guncelledik
 
